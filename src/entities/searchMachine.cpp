@@ -8,12 +8,12 @@ SearchMachine::SearchMachine(string documentsPath) {
     documentsPath_ = documentsPath;
 }
 
-string SearchMachine::normalizeWord(std::string word) {
+string SearchMachine::normalizeWord(string word) {
     std::string normalized = "";
 
     for (int i = 0; i < word.length(); i++) {
         char c = word[i];
-        if (std::isalpha(c)) {
+        if (isalpha(c)) {
             normalized += c;
         }
     }
