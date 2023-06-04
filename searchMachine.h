@@ -26,7 +26,10 @@ class SearchMachine {
     string normalizeWord(string word);
 
     // Indice invertido
-    map<string, map<string, int>> invertedIndex;
+    map<string, map<string, int>> invertedIndex_;
+
+    // caminho de /documentos
+    string documentsPath_;
 };
 
 #endif
