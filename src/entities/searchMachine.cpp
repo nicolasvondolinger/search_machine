@@ -50,10 +50,3 @@ void SearchMachine::readFile() {
         }
     }
 }
-
-
-
-
-void SearchMachine::buildIndex() {
-
-}
