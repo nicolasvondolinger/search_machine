@@ -15,8 +15,11 @@ class SearchMachine {
     // Construtor da Classe;
     SearchMachine();
 
+    // Lê os arquivos
+    void readFile();
+
     // Subsistema de indexação
-    void buildIndex(string documentsPath);
+    void buildIndex();
     
     // Subsistema de recuperação
     vector<string> search(string);
