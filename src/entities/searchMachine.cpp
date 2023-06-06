@@ -1,4 +1,4 @@
-#include "searchMachine.h"
+#include "../../include/searchMachine.h"
 #include <string>
 #include <cctype>
 #include <iostream>
@@ -33,4 +33,8 @@ string normalizedWord(string word){
     }
 
     return normalized;
+}
+
+int main(){
+    return 0;
 }
