@@ -13,10 +13,13 @@ using std::vector;
 class SearchMachine {
     public:
     // Construtor da Classe;
-    SearchMachine(string documentsPath);
+    SearchMachine();
+
+    // Lê os arquivos
+    void readFile();
 
     // Subsistema de indexação
-    void buildIndex(string documentsPath);
+    map<string, map<string, int>> buildIndex(string newWord, string arquivo);
     
     // Subsistema de recuperação
     vector<string> search(string);
