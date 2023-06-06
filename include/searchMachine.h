@@ -19,7 +19,7 @@ class SearchMachine {
     void readFile();
 
     // Subsistema de indexação
-    void buildIndex();
+    map<string, map<string, int>> buildIndex(string newWord, string arquivo);
     
     // Subsistema de recuperação
     vector<string> search(string);

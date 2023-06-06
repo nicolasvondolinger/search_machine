@@ -4,7 +4,7 @@
 #include <fstream>
 #include <filesystem>
 #include <sstream>
-
+#include <map>
 
 using namespace std;
 
@@ -25,6 +25,12 @@ string SearchMachine::normalizeWord(string word) {
     return normalized;
 }
 
+map<string, map<string, int>> SearchMachine::buildIndex(string newWord, string arquivo){
+    invertedIndex_[newWord];
+    
+    return invertedIndex_;
+}
+
 void SearchMachine::readFile() {
     for (const auto arquivo : filesystem::directory_iterator(documentsPath_)) {
         if (arquivo.is_regular_file()) {
@@ -35,7 +41,9 @@ void SearchMachine::readFile() {
                     istringstream iss(linha);
                     string palavra;
                     while (iss >> palavra) {
+                        string fileName = arquivo.path().stem();
                         string newWord = normalizeWord(palavra);
+                        invertedIndex_ = buildIndex(newWord, fileName);
                     }
                 }
                 arquivoEntrada.close();
@@ -43,6 +51,8 @@ void SearchMachine::readFile() {
         }
     }
 }
+
+
 
 
 void SearchMachine::buildIndex() {

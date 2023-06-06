@@ -31,8 +31,10 @@ void readFile() {
                     istringstream iss(linha);
                     string palavra;
                     while (iss >> palavra) {
+                        string fileName = arquivo.path().stem();
                         string newWord = normalizeWord(palavra);
-                        cout << newWord << endl;
+                        
+                        cout << arquivo << endl;
                     }
                 }
                 arquivoEntrada.close();
