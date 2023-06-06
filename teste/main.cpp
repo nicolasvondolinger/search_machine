@@ -57,7 +57,7 @@ string final (map<string, int> mapaInterno) {
         final += it -> first;
         int frequencia = it -> second;
         final += ", " + to_string(frequencia);
-        if(it++ == mapaInterno.end()){
+        if(next(it) == mapaInterno.end()){
             final += ")";
             break;
         }
@@ -78,13 +78,8 @@ int main() {
     for(auto it = invertedIndex_.begin(); it != invertedIndex_.end(); it++) {
         string palavra = it -> first;
         map<string, int> mapaInterno = it->second;
-        for(auto it2 = mapaInterno.begin(); it2 != mapaInterno.end(); it2++) {
-            string arquivo = it2 -> first;
-            int frequencia = it2 -> second;
-            string valor = final(mapaInterno);
-            cout << palavra << " " << valor << endl;
-            break;
-        }
+        string valor = final(mapaInterno);
+        cout << palavra << " " << valor << endl;
     }
 
 
