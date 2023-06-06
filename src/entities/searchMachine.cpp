@@ -1,9 +1,9 @@
 #include "../../include/searchMachine.h"
 #include <string>
 #include <cctype>
-#include <iostream>
-#include <dirent.h>
 #include <fstream>
+#include <filesystem>
+#include <sstream>
 
 
 using namespace std;
@@ -26,15 +26,25 @@ string SearchMachine::normalizeWord(string word) {
 }
 
 void SearchMachine::readFile() {
-    
+    for (const auto arquivo : filesystem::directory_iterator(documentsPath_)) {
+        if (arquivo.is_regular_file()) {
+            ifstream arquivoEntrada(arquivo.path());
+            if (arquivoEntrada) {
+                string linha;
+                while (getline(arquivoEntrada, linha)) {
+                    istringstream iss(linha);
+                    string palavra;
+                    while (iss >> palavra) {
+                        string newWord = normalizeWord(palavra);
+                    }
+                }
+                arquivoEntrada.close();
+            }
+        }
+    }
 }
 
 
 void SearchMachine::buildIndex() {
 
-}
-
-
-int main(){
-    return 0;
 }
