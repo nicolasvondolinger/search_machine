@@ -15,12 +15,8 @@ string SearchMachine::normalizeWord(string word) {
     for (int i = 0; i < word.length(); i++) {
         char c = word[i];
         if (isalpha(c)) {
-            normalized += c;
+            normalized += tolower(c);
         }
-    }
-
-    for (int i : normalized) {
-        normalized[i] = tolower(normalized[i]);
     }
 
     return normalized;
