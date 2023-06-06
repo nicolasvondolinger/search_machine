@@ -5,8 +5,8 @@
 
 using namespace std;
 
-SearchMachine::SearchMachine(string documentsPath) {
-    documentsPath_ = documentsPath;
+SearchMachine::SearchMachine() {
+    documentsPath_ = "./documentos/";
 }
 
 string SearchMachine::normalizeWord(string word) {
@@ -34,6 +34,8 @@ string normalizedWord(string word){
 
     return normalized;
 }
+
+
 
 int main(){
     return 0;

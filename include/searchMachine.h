@@ -13,7 +13,7 @@ using std::vector;
 class SearchMachine {
     public:
     // Construtor da Classe;
-    SearchMachine(string documentsPath);
+    SearchMachine();
 
     // Subsistema de indexação
     void buildIndex(string documentsPath);
