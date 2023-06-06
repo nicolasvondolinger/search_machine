@@ -26,8 +26,7 @@ string SearchMachine::normalizeWord(string word) {
 }
 
 map<string, map<string, int>> SearchMachine::buildIndex(string newWord, string arquivo){
-    invertedIndex_[newWord];
-    
+    invertedIndex_[newWord][arquivo]++;
     return invertedIndex_;
 }
 
