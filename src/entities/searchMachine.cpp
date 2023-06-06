@@ -9,7 +9,7 @@
 using namespace std;
 
 SearchMachine::SearchMachine() {
-    documentsPath_ = "./documentos/";
+    documentsPath_ = "../documentos/";
 }
 
 string SearchMachine::normalizeWord(string word) {
