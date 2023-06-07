@@ -41,6 +41,7 @@ void SearchMachine::readFile() {
                     string palavra;
                     while (iss >> palavra) {
                         string fileName = arquivo.path().stem();
+                        fileName += ".txt";
                         string newWord = normalizeWord(palavra);
                         invertedIndex_ = buildIndex(newWord, fileName);
                     }
