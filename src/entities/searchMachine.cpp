@@ -2,6 +2,7 @@
 #include <string>
 #include <cctype>
 #include <fstream>
+#include <sstream>
 #include <filesystem>
 #include <sstream>
 #include <map>
@@ -9,14 +10,13 @@
 using namespace std;
 
 SearchMachine::SearchMachine() {
-    documentsPath_ = "../documentos/";
+    documentsPath_ = "./documentos";
 }
 
 string SearchMachine::normalizeWord(string word) {
     std::string normalized = "";
 
-    for (int i = 0; i < word.length(); i++) {
-        char c = word[i];
+    for (char c : word) {
         if (isalpha(c)) {
             normalized += tolower(c);
         }
@@ -50,3 +50,16 @@ void SearchMachine::readFile() {
         }
     }
 }
+
+void SearchMachine::split(string str) {
+    stringstream ss(str);
+    string word;
+    while (ss >> word) {
+        normalizeWord(word);
+        words_.push_back(word);
+    }
+}
+
+
+
+
