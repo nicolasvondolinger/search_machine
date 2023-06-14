@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <sstream>
 #include <map>
+#include <algorithm> 
 
 using namespace std;
 
@@ -51,3 +52,46 @@ void SearchMachine::readFile() {
         }
     }
 }
+
+void SearchMachine::search(vector<string> words) {
+    // Normalizando as palavras recebidas
+    for (int i = 0; i < words.size(); i++) {
+       string newWord = normalizeWord(words[i]);
+       words[i] = newWord;
+    }
+    
+    // Comparando com as palavras do mapa e armazenando as correspondências
+    map<string, int> searchMap;
+    for (auto pair = invertedIndex_.begin(); pair != invertedIndex_.end(); pair++) {
+        const std::map<std::string, int>& archives = pair->second; 
+        bool allWordsPresent = true;
+        
+        for (const string& word : words) {
+            if (archives.find(word) == archives.end()) {
+                allWordsPresent = false;
+                break;
+            }
+        }
+        
+        if (allWordsPresent) {
+            for (const auto& inner_pair : archives) {
+                searchMap[inner_pair.first] += inner_pair.second;
+            }
+        }
+    }
+    
+    // Ordenando e imprimindo os arquivos pela frequência (maior para menor)
+    vector<pair<string, int>> sortedFiles(searchMap.begin(), searchMap.end());
+    sort(sortedFiles.begin(), sortedFiles.end(), [](const auto& a, const auto& b) {
+        return a.second > b.second;
+    });
+    
+    for (const auto& file : sortedFiles) {
+        cout << "Arquivo: " << file.first << ", Frequência: " << file.second << endl;
+    }
+}
+
+
+    
+ 
+    
