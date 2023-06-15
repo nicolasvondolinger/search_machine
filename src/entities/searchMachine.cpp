@@ -1,4 +1,4 @@
-#include "../../include/searchMachine.h"
+#include "../../contract/searchMachine.h"
 #include <string>
 #include <cctype>
 #include <fstream>
