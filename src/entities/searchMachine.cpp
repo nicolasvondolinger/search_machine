@@ -2,22 +2,22 @@
 #include <string>
 #include <cctype>
 #include <fstream>
+#include <sstream>
 #include <filesystem>
 #include <sstream>
 #include <map>
-#include <algorithm> 
+#include <algorithm>
 
 using namespace std;
 
 SearchMachine::SearchMachine() {
-    documentsPath_ = "../documentos/";
+    documentsPath_ = "./documentos";
 }
 
 string SearchMachine::normalizeWord(string word) {
     std::string normalized = "";
 
-    for (int i = 0; i < word.length(); i++) {
-        char c = word[i];
+    for (char c : word) {
         if (isalpha(c)) {
             normalized += tolower(c);
         }
@@ -42,7 +42,6 @@ void SearchMachine::readFile() {
                     string palavra;
                     while (iss >> palavra) {
                         string fileName = arquivo.path().stem();
-                        fileName += ".txt";
                         string newWord = normalizeWord(palavra);
                         invertedIndex_ = buildIndex(newWord, fileName);
                     }
@@ -80,19 +79,35 @@ vector<string> SearchMachine::search(string input) {
         }
     }
 
-    // verifica se todas as palavras existem em algum documento
     vector<string> relevantDocuments;
     for (auto entry = documentOccurrences.begin(); entry != documentOccurrences.end(); entry++) {
         if (entry->second == words.size()) {
             relevantDocuments.push_back(entry->first);
-            cout << endl;
-            cout << entry -> first;
         }
     }
 
     return relevantDocuments;
 }
 
-    
- 
-    
+
+int main() {
+    SearchMachine search;
+    search.readFile();
+
+    std::string query;
+    std::cout << "Digite a consulta: ";
+    std::getline(std::cin, query);
+
+    std::vector<std::string> relevantDocuments = search.search(query);
+
+    if (relevantDocuments.empty()) {
+        std::cout << "Nenhum documento relevante encontrado." << std::endl;
+    } else {
+        std::cout << "Documentos relevantes:" << std::endl;
+        for (const std::string& document : relevantDocuments) {
+            std::cout << document << std::endl;
+        }
+    }
+
+    return 0;
+}
