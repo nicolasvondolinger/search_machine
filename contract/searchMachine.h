@@ -22,7 +22,7 @@ class SearchMachine {
     map<string, map<string, int>> buildIndex(string newWord, string arquivo);
     
     // Subsistema de recuperação
-    void search(vector<string>words);
+    vector<string> search(string words);
 
     private:
     // Normaliza as palavras (coloca por padrao todas minúsculas)
