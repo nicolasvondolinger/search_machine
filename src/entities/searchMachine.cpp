@@ -53,44 +53,45 @@ void SearchMachine::readFile() {
     }
 }
 
-void SearchMachine::search(vector<string> words) {
-    // Normalizando as palavras recebidas
-    for (int i = 0; i < words.size(); i++) {
-       string newWord = normalizeWord(words[i]);
-       words[i] = newWord;
+vector<string> SearchMachine::search(string input) {
+    // Normaliza as palavras da consulta
+    istringstream iss(input);
+    vector<string> words;
+    string word;
+    while (iss >> word) {
+        string normalizedWord = normalizeWord(word);
+        words.push_back(normalizedWord);
     }
-    
-    // Comparando com as palavras do mapa e armazenando as correspondências
-    map<string, int> searchMap;
-    for (auto pair = invertedIndex_.begin(); pair != invertedIndex_.end(); pair++) {
-        const std::map<std::string, int>& archives = pair->second; 
-        bool allWordsPresent = true;
-        
-        for (const string& word : words) {
-            if (archives.find(word) == archives.end()) {
-                allWordsPresent = false;
-                break;
-            }
-        }
-        
-        if (allWordsPresent) {
-            for (const auto& inner_pair : archives) {
-                searchMap[inner_pair.first] += inner_pair.second;
-            }
-        }
-    }
-    
-    // Ordenando e imprimindo os arquivos pela frequência (maior para menor)
-    vector<pair<string, int>> sortedFiles(searchMap.begin(), searchMap.end());
-    sort(sortedFiles.begin(), sortedFiles.end(), [](const auto& a, const auto& b) {
-        return a.second > b.second;
-    });
-    
-    for (const auto& file : sortedFiles) {
-        cout << "Arquivo: " << file.first << ", Frequência: " << file.second << endl;
-    }
-}
 
+    // Mapa para armazenar o número de ocorrências de cada documento relevante
+    map<string, int> documentOccurrences;
+    // Percorre cada palavra da consulta
+    for (auto it = words.begin(); it != words.end(); it++) {
+        // Consulta o índice invertido para obter os documentos que contêm a palavra
+        if (invertedIndex_.find(*it) != invertedIndex_.end()) {
+            map<string, int> wordOccurrences = invertedIndex_[*it];
+            // Atualiza o contador de ocorrências de cada documento
+            for (auto entry = wordOccurrences.begin(); entry != wordOccurrences.end(); ++entry) {
+                documentOccurrences[entry->first]++;
+            }
+        } else {
+            // Se alguma palavra não for encontrada no índice, retorna uma lista vazia
+            return vector<string>();
+        }
+    }
+
+    // verifica se todas as palavras existem em algum documento
+    vector<string> relevantDocuments;
+    for (auto entry = documentOccurrences.begin(); entry != documentOccurrences.end(); entry++) {
+        if (entry->second == words.size()) {
+            relevantDocuments.push_back(entry->first);
+            cout << endl;
+            cout << entry -> first;
+        }
+    }
+
+    return relevantDocuments;
+}
 
     
  
