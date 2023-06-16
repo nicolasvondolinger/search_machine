@@ -96,8 +96,13 @@ vector<pair<string, int>> SearchMachine::search(string input) {
     // Ordenar o vetor com base nos valores em ordem decrescente
     sort(relevantDocuments.begin(), relevantDocuments.end(),
          [](const pair<string, int>& a, const pair<string, int>& b) {
-             return a.second > b.second;
+             if(a.second != b.second){
+                return a.second > b.second;
+         }else{
+            return a.first < b.first; 
+         }
          });
+
 
 
     return relevantDocuments;
