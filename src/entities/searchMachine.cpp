@@ -129,8 +129,10 @@ int main() {
         std::cout << "Nenhum documento relevante encontrado." << std::endl;
     } else {
         std::cout << "Documentos relevantes:" << std::endl;
+        int i=1;
         for (const std::string& document : relevantDocuments) {
-            std::cout << document << std::endl;
+            std::cout << i << "°: " << document << std::endl;
+            i++;
         }
     }
 
