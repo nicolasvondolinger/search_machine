@@ -11,7 +11,7 @@
 using namespace std;
 
 SearchMachine::SearchMachine() {
-    documentsPath_ = "./documentos";
+    documentsPath_ = "../documentos";
 }
 
 string SearchMachine::normalizeWord(string word) {
@@ -52,7 +52,7 @@ void SearchMachine::readFile() {
     }
 }
 
-vector<string> SearchMachine::search(string input) {
+vector<pair<string, int>> SearchMachine::search(string input) {
     // Normaliza as palavras da consulta
     istringstream iss(input);
     vector<string> words;
@@ -64,30 +64,49 @@ vector<string> SearchMachine::search(string input) {
 
     // Mapa para armazenar o número de ocorrências de cada documento relevante
     map<string, int> documentOccurrences;
+    map<string, int> wordOccurrences;
     // Percorre cada palavra da consulta
     for (auto it = words.begin(); it != words.end(); it++) {
         // Consulta o índice invertido para obter os documentos que contêm a palavra
         if (invertedIndex_.find(*it) != invertedIndex_.end()) {
-            map<string, int> wordOccurrences = invertedIndex_[*it];
+            wordOccurrences = invertedIndex_[*it];
             // Atualiza o contador de ocorrências de cada documento
             for (auto entry = wordOccurrences.begin(); entry != wordOccurrences.end(); ++entry) {
                 documentOccurrences[entry->first]++;
             }
         } else {
-            // Se alguma palavra não for encontrada no índice, retorna uma lista vazia
-            return vector<string>();
+            // Se alguma palavra não for encontrada no índice, retorna um vetor vazio
+            return vector<pair<string, int>>();
         }
     }
 
-    vector<string> relevantDocuments;
+    vector<pair<string, int>> relevantDocuments;
+    string key;
     for (auto entry = documentOccurrences.begin(); entry != documentOccurrences.end(); entry++) {
         if (entry->second == words.size()) {
-            relevantDocuments.push_back(entry->first);
+            key = entry->first;
+            auto valueIterator = wordOccurrences.find(key);
+            if (valueIterator != wordOccurrences.end()) {
+                int value = valueIterator->second;
+                relevantDocuments.emplace_back(key, value);
+            }
         }
+    }
+
+    // Ordenar o vetor com base nos valores em ordem decrescente
+    sort(relevantDocuments.begin(), relevantDocuments.end(),
+         [](const pair<string, int>& a, const pair<string, int>& b) {
+             return a.second > b.second;
+         });
+
+    // Imprimir os elementos do vetor na sequência ordenada
+    for (const auto& pair : relevantDocuments) {
+        cout << pair.first << endl;
     }
 
     return relevantDocuments;
 }
+
 
 
 int main() {
@@ -98,7 +117,13 @@ int main() {
     std::cout << "Digite a consulta: ";
     std::getline(std::cin, query);
 
-    std::vector<std::string> relevantDocuments = search.search(query);
+    std::vector<std::pair<std::string, int>> relevantDocumentsPairs = search.search(query);
+    std::vector<std::string> relevantDocuments;
+
+    // Extrair apenas as strings relevantes do vetor de pares
+    for (const auto& pair : relevantDocumentsPairs) {
+        relevantDocuments.push_back(pair.first);
+    }
 
     if (relevantDocuments.empty()) {
         std::cout << "Nenhum documento relevante encontrado." << std::endl;
