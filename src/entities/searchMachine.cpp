@@ -99,10 +99,6 @@ vector<pair<string, int>> SearchMachine::search(string input) {
              return a.second > b.second;
          });
 
-    // Imprimir os elementos do vetor na sequência ordenada
-    for (const auto& pair : relevantDocuments) {
-        cout << pair.first << endl;
-    }
 
     return relevantDocuments;
 }
@@ -131,7 +127,7 @@ int main() {
         std::cout << "Documentos relevantes:" << std::endl;
         int i=1;
         for (const std::string& document : relevantDocuments) {
-            std::cout << i << "°: " << document << std::endl;
+            std::cout << i << "°: " << document << ".txt" << std::endl;
             i++;
         }
     }
