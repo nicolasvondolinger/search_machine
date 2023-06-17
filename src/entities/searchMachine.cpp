@@ -99,7 +99,7 @@ vector<pair<string, int>> SearchMachine::search(string input) {
              if(a.second != b.second){
                 return a.second > b.second;
          }else{
-            return a.first < b.first; 
+                return a.first > b.first; 
          }
          });
 
