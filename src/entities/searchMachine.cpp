@@ -65,6 +65,7 @@ vector<pair<string, int>> SearchMachine::search(string input) {
     // Mapa para armazenar o número de ocorrências de cada documento relevante
     map<string, int> documentOccurrences;
     map<string, int> wordOccurrences;
+    map<string, int> totalOcurrences;
     // Percorre cada palavra da consulta
     for (auto it = words.begin(); it != words.end(); it++) {
         // Consulta o índice invertido para obter os documentos que contêm a palavra
@@ -73,6 +74,7 @@ vector<pair<string, int>> SearchMachine::search(string input) {
             // Atualiza o contador de ocorrências de cada documento
             for (auto entry = wordOccurrences.begin(); entry != wordOccurrences.end(); ++entry) {
                 documentOccurrences[entry->first]++;
+                totalOcurrences[entry->first] += entry->second;
             }
         } else {
             // Se alguma palavra não for encontrada no índice, retorna um vetor vazio
@@ -80,30 +82,22 @@ vector<pair<string, int>> SearchMachine::search(string input) {
         }
     }
 
-    vector<pair<string, int>> relevantDocuments;
-    string key;
-    for (auto entry = documentOccurrences.begin(); entry != documentOccurrences.end(); entry++) {
-        if (entry->second == words.size()) {
-            key = entry->first;
-            auto valueIterator = wordOccurrences.find(key);
-            if (valueIterator != wordOccurrences.end()) {
-                int value = valueIterator->second;
-                relevantDocuments.emplace_back(key, value);
-            }
+
+    for(auto entry = documentOccurrences.begin(); entry != documentOccurrences.end(); ++entry) {
+        if(entry->second != words.size()) {
+            totalOcurrences.erase(entry->first);
         }
     }
 
-    // Ordenar o vetor com base nos valores em ordem decrescente
-    sort(relevantDocuments.begin(), relevantDocuments.end(),
-         [](const pair<string, int>& a, const pair<string, int>& b) {
-             if(a.second != b.second){
-                return a.second > b.second;
-         }else{
-                return a.first > b.first; 
-         }
-         });
 
+    vector<pair<string, int>> sortedOccurrences(totalOcurrences.begin(), totalOcurrences.end());
+    sort(sortedOccurrences.begin(), sortedOccurrences.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
+        if (a.second != b.second) {
+            return a.second > b.second;  // Sort by number of occurrences (descending order)
+        } else {
+            return a.first < b.first;  // Sort by lexicographic order (ascending order)
+        }
+    });
 
-
-    return relevantDocuments;
+    return sortedOccurrences;
 }

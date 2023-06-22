@@ -1,23 +1,28 @@
 CC=g++
 CFLAGS=-std=c++17
 
-
 TARGET=program
-BUILD_DIR = .
-SRC_DIR = ./src
-INCLUDE_DIR = ./include
-ENTITIES_DIR = ./entities
+BUILD_DIR = build
+SRC_DIR = src
+INCLUDE_DIR = include
+ENTITIES_DIR = entities
 
-all: $(TARGET)
+# Lista dos arquivos fonte
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
 
-searchMachine.o: $(INCLUDE_DIR)/searchMachine.h $(SRC_DIR)/$(ENTITIES_DIR)/searchMachine.cpp
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/$(ENTITIES_DIR)/searchMachine.cpp
+all: $(BUILD_DIR)/$(TARGET)
 
-main.o: $(SRC_DIR)/main.cpp $(INCLUDE_DIR)/searchMachine.h
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/main.cpp
+$(BUILD_DIR)/$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-$(TARGET): main.o searchMachine.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)/$(TARGET) main.o
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
 clean:
-	rm -f *.o $(BUILD_DIR)/$(TARGET)
+	rm -rf $(BUILD_DIR)
+
+.PHONY: all clean

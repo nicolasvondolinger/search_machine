@@ -9,6 +9,7 @@
 using std::string;
 using std::map;
 using std::vector;
+using std::pair;
 
 class SearchMachine {
     public:
@@ -22,7 +23,7 @@ class SearchMachine {
     map<string, map<string, int>> buildIndex(string newWord, string arquivo);
     
     // Subsistema de recuperação
-    vector<std::pair<string,int>> search(string words);
+    vector<pair<string, int>> search(string words);
 
     private:
     // Normaliza as palavras (coloca por padrao todas minúsculas)
