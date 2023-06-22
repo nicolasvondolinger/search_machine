@@ -30,7 +30,7 @@ Recuperação
 O subsistema de recuperação é responsável por retornar os documentos mais relevantes para uma determinada consulta. A consulta consiste em um conjunto de palavras, e os documentos retornados devem conter todas as palavras da consulta. Os documentos são ordenados de acordo com a relevância, priorizando aqueles com um número maior de hits. Em caso de empate, a ordem é determinada pelo nome do arquivo em ordem lexicográfica.
 Instruções de Execução
 
-Siga as instruções abaixo para executar o projeto em uma máquina Linux, de preferência Ubuntu:
+Siga as instruções abaixo para executar o projeto em uma máquina Linux ou WSL, de preferência Ubuntu:
 
     Instalação do compilador:
 
