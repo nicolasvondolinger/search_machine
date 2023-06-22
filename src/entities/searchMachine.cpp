@@ -11,7 +11,7 @@
 using namespace std;
 
 SearchMachine::SearchMachine() {
-    documentsPath_ = "./src/documentos";
+    documentsPath_ = "./documentos";
 }
 
 string SearchMachine::normalizeWord(string word) {
