@@ -8,6 +8,7 @@ int main() {
     std::string query;
     std::cout << "Digite a consulta: ";
     std::getline(std::cin, query);
+    cout << endl;
 
 
     std::vector<pair<std::string, int>> relevantDocuments = search.search(query);
@@ -15,11 +16,12 @@ int main() {
     if (relevantDocuments.empty()) {
     cout << "Nenhum documento relevante encontrado." << std::endl;
     } else {
-    cout << "Documentos relevantes:" << endl;
-    cout << endl;
+    cout << "Documentos Relevantes:" << endl;
+    cout << "--------------------------------------------------------" << endl;
     for (int i = 0; i < relevantDocuments.size(); i++) {
-    cout << i+1 << "º " << relevantDocuments[i].first << ".txt" << endl;
+    cout << i+1 << "º " << ": " <<relevantDocuments[i].first << ".txt" << endl;
     }
+    cout << "--------------------------------------------------------" << endl;
     }
 
     return 0;
