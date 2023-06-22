@@ -46,20 +46,19 @@ Navegação até a pasta do projeto:
 
     	$ cd /caminho/para/o/projeto
 
-Compilação do código:
+Compilação e Execução do código:
 
-    No terminal, execute o seguinte comando para compilar o código-fonte do projeto:
+    No terminal, execute o seguinte comando para executar o Makefile do projeto:
 
-   	 $ g++ main.cpp -o search_engine
+   	    $ make
 
-Execução do projeto:
+    Em seguida, para execução do código, digite o seguinte comando:
 
-    Após a compilação bem-sucedida, execute o projeto com o seguinte comando:
+        $ ./build/program
 
-        $ ./search_engine
+Consultas
 
-    Consultas:
-        Após a execução do projeto, digite as consultas desejadas na linha de comando, separando as palavras por espaços.
-        Os documentos mais relevantes para a consulta serão exibidos na saída padrão, um por linha, em ordem de relevância.
+    Após a execução do projeto, digite as consultas desejadas na linha de comando, separando as palavras por espaços.
+    Os documentos mais relevantes para a consulta serão exibidos na saída padrão, um por linha, em ordem de relevância.
 
 Certifique-se de que a pasta ./documentos/ contém os documentos de interesse antes de executar o projeto.

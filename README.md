@@ -39,6 +39,7 @@ O subsistema de recuperação é responsável por retornar os documentos mais re
 Siga as instruções abaixo para executar o projeto em uma máquina Linux, de preferência Ubuntu:
 
 1. Instalação do compilador:
+   
    - Certifique-se de ter o compilador C++ instalado. Caso contrário, abra um terminal e execute o seguinte comando para instalar o compilador GCC:
 
      ```
@@ -47,6 +48,7 @@ Siga as instruções abaixo para executar o projeto em uma máquina Linux, de pr
      ```
 
 2. Navegação até a pasta do projeto:
+   
    - Abra um terminal.
    - Utilize o comando `cd` seguido do caminho para a pasta do projeto. Por exemplo:
 
@@ -54,21 +56,21 @@ Siga as instruções abaixo para executar o projeto em uma máquina Linux, de pr
      $ cd /caminho/para/o/projeto
      ```
 
-3. Compilação do código:
+3. Compilação e Execução do código:
+   
    - No terminal, execute o seguinte comando para compilar o código-fonte do projeto:
 
      ```
-     $ g++ main.cpp -o search_engine
+     $ make
      ```
-
-4. Execução do projeto:
-   - Após a compilação bem-sucedida, execute o projeto com o seguinte comando:
+   - Em seguida, para execução do código, digite o seguinte comando:
 
      ```
-     $ ./search_engine
+     $ ./build/program
      ```
 
-5. Consultas:
+4. Consultas:
+
    - Após a execução do projeto, digite as consultas desejadas na linha de comando, separando as palavras por espaços.
    - Os documentos mais relevantes para a consulta serão exibidos na saída padrão, um por linha, em ordem de relevância.
 
